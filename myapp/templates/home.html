@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2>Home</h2>
+    <p>Welcome to ABCD School!</p>
+
+    <!-- Student Count -->
+    <div class="student-count">
+        <h3>Total Students: {{ student_count }}</h3>
+    </div>
+
+    <!-- Event Countdown Timer -->
+    {% if next_event %}
+        <div class="event-timer">
+            <h3>Next School Event Countdown</h3>
+            <p id="countdown"></p>
+        </div>
+
+        <script>
+            // Set the date for the next event
+            var eventDate = new Date("{{ next_event.start_date|date:'Y-m-d H:i:s' }}").getTime();
+
+            // Update the countdown every 1 second
+            var countdownTimer = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = eventDate - now;
+
+                // Time calculations for days, hours, minutes, and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Output the result in an element with id="countdown"
+                document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+                // If the countdown is over, display a message
+                if (distance < 0) {
+                    clearInterval(countdownTimer);
+                    document.getElementById("countdown").innerHTML = "The event has started!";
+                }
+            }, 1000);
+        </script>
+    {% else %}
+        <p>No upcoming events.</p>
+    {% endif %}
+    <div class="upcoming-events">
+        <h3>Upcoming Events</h3>
+        {% if upcoming_events %}
+            <ul>
+                {% for event in upcoming_events %}
+                    <li>
+                        <strong>{{ event.title }}</strong><br>
+                        {{ event.description }}<br>
+                        Start Date: {{ event.start_date|date:'Y-m-d' }}<br>
+                        End Date: {{ event.end_date|date:'Y-m-d' }}
+                    </li>
+                {% empty %}
+                    <p>No upcoming events.</p>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No upcoming events.</p>
+        {% endif %}
+    </div>
+
+
+    <style>
+        .student-count, .event-timer, .upcoming-events {
+            margin: 20px 0;
+        }
+
+        #countdown {
+            font-size: 20px;
+            color: #ff6347;
+        }
+
+        .upcoming-events ul {
+            list-style-type: none;
+        }
+
+        .upcoming-events li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+{% endblock %}

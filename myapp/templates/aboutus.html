@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    <style>
+        .about-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .about-container p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-list li {
+            font-size: 1.1em;
+            color: #444;
+            text-align: center;
+            margin: 10px 0;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .team-list li:hover {
+            background-color: #d4af37;
+            color: white;
+        }
+
+        .about-container li:first-child {
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="about-container">
+        <h2>About Us</h2>
+        <p>Developed by:</p>
+        <ul class="team-list">
+            <li>Amir Hamza (2KE21CS006)</li>
+            <li>Megha (2KE21CS046)</li>
+            <li>Namita (2KE21CS049)</li>
+            <li>Prajwala (2KE21CS060)</li>
+        </ul>
+    </div>
+{% endblock %}
